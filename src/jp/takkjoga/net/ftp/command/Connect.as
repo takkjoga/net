@@ -1,14 +1,15 @@
-package jp.takkjoga.air.net.FTP.commands
+package jp.takkjoga.net.ftp.command
 {
 
 import flash.events.Event;
 import flash.events.SecurityErrorEvent;
 import flash.events.IOErrorEvent;
-import jp.takkjoga.air.net.FTP;
-import jp.takkjoga.air.net.FTPEvent;
-import jp.takkjoga.air.net.FTP.*;
+import jp.takkjoga.net.FTP;
+import jp.takkjoga.net.ftp.FTPCommand;
+import jp.takkjoga.net.ftp.IFTPCommand;
+import jp.takkjoga.net.ftp.FTPReply;
 
-public class Connect extends AbstractCommand implements ICommand
+public class Connect extends FTPCommand implements IFTPCommand
 {
     private var host:String;
     private var port:int;
@@ -41,9 +42,9 @@ public class Connect extends AbstractCommand implements ICommand
         }
     }
 
-    public function response():Boolean
+    public function evaluateReply(reply:FTPReply):Boolean
     {
-        if (_receive() == 220) {
+        if (reply.replyCode == 220) {
             return true;
         }
         return false;

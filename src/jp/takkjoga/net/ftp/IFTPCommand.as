@@ -1,7 +1,7 @@
 package jp.takkjoga.net.ftp
 {
 
-import jpt.takkjoga.net.ftp.*;
+import jp.takkjoga.net.ftp.*;
 
 public interface IFTPCommand
 {

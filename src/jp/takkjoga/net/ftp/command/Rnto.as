@@ -1,16 +1,17 @@
-package jp.takkjoga.air.net.FTP.commands
+package jp.takkjoga.net.ftp.command
 {
 
-import jp.takkjoga.air.net.FTP;
-import jp.takkjoga.air.net.FTPEvent;
-import jp.takkjoga.air.net.FTP.*;
+import jp.takkjoga.net.FTP;
+import jp.takkjoga.net.ftp.FTPCommand;
+import jp.takkjoga.net.ftp.IFTPCommand;
+import jp.takkjoga.net.ftp.FTPReply;
 
 /**
  * ファイル名を更新する際の
  * 変更後ファイル名指定コマンド
  * Rename To
  */
-public class Rnto extends AbstractCommand implements ICommand
+public class Rnto extends FTPCommand implements IFTPCommand
 {
     private var fileName:String;
 
@@ -25,9 +26,9 @@ public class Rnto extends AbstractCommand implements ICommand
         _send(command);
     }
 
-    public function response():Boolean
+    public function evaluateReply(reply:FTPReply):Boolean
     {
-        if (_receive() == 250) {
+        if (reply.replyCode == 250) {
             return true;
         }
         return false;

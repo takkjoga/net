@@ -1,8 +1,10 @@
 package jp.takkjoga.net.ftp
 {
 
-import jp.takkjoga.net.ftp.commands.*;
+import flash.events.ProgressEvent;
+import jp.takkjoga.net.ftp.command.*;
 import jp.takkjoga.net.ftp.*;
+import jp.takkjoga.net.ftp.events.*;
 
 public class CommandManager
 {
@@ -19,7 +21,7 @@ public class CommandManager
         _controlConnection = controlConnection;
     }
 
-    private _execute(command:IFTPCommand) {
+    private function _execute(command:IFTPCommand) {
         command.addEventListener(FTPConnectionEvent.COMMAND_FINISHED, commandFinishedHandler);
         command.addEventListener(FTPDataConnectionEvent.DATA_CONNECTION, dataConnectionHandler);
         command.execute();
@@ -71,9 +73,9 @@ public class CommandManager
         event.target.close();
 
         if (nowCommand is List) {
-            FileList.instance.formatData(response);
+            //FileList.instance.formatData(response);
         } else if (nowCommand is Retr) {
-            FileData.instance.data = response;
+            //FileData.instance.data = response;
         }
     }
 }

@@ -6,6 +6,7 @@ import flash.events.*;
 import flash.net.Socket;
 import jp.takkjoga.net.FTP;
 import jp.takkjoga.net.ftp.*;
+import jp.takkjoga.net.ftp.command.*;
 
 public class FTPClient extends EventDispatcher
 {
@@ -121,14 +122,6 @@ public class FTPClient extends EventDispatcher
     public function help():void
     {
         commands.send(new Help());
-    }
-
-    /**
-     * ファイルデータの取得イベント
-     */
-    public function fileDataRecievedHandler(event:FTPEvent):void
-    {
-        dispatchEvent(new FTPEvent(FTPEvent.FILE_DATA_RECIEVED, null, null, event.fileData));
     }
 }
 

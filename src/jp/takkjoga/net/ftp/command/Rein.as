@@ -1,15 +1,16 @@
 package jp.takkjoga.net.ftp.command
 {
 
-import jp.takkjoga.air.net.FTP;
-import jp.takkjoga.air.net.FTPEvent;
-import jp.takkjoga.air.net.FTP.*;
+import jp.takkjoga.net.FTP;
+import jp.takkjoga.net.ftp.FTPCommand;
+import jp.takkjoga.net.ftp.IFTPCommand;
+import jp.takkjoga.net.ftp.FTPReply;
 
 /**
  * REINITIALIZE (REIN)
  * no impletement
  */
-public class Rein extends AbstractCommand implements ICommand
+public class Rein extends FTPCommand implements IFTPCommand
 {
     public function Rein():void
     {
@@ -19,7 +20,7 @@ public class Rein extends AbstractCommand implements ICommand
     {
     }
 
-    public function response():Boolean
+    public function evaluateReply(reply:FTPReply):Boolean
     {
     }
 }

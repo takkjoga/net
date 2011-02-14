@@ -1,14 +1,15 @@
 package jp.takkjoga.net.ftp.command
 {
 
-import jp.takkjoga.air.net.FTP;
-import jp.takkjoga.air.net.FTPEvent;
-import jp.takkjoga.air.net.FTP.*;
+import jp.takkjoga.net.FTP;
+import jp.takkjoga.net.ftp.FTPCommand;
+import jp.takkjoga.net.ftp.IFTPCommand;
+import jp.takkjoga.net.ftp.FTPReply;
 
 /**
  * CHANGE WORKING DIRECTORY (CWD)
  */
-public class Cwd extends AbstractCommand implements ICommand
+public class Cwd extends FTPCommand implements IFTPCommand
 {
     private var directory:String;
 
@@ -23,9 +24,9 @@ public class Cwd extends AbstractCommand implements ICommand
         _send(command);
     }
 
-    public function response():Boolean
+    public function evaluateReply(reply:FTPReply):Boolean
     {
-        if (_receive() == 250) {
+        if (reply.replyCode == 250) {
             dispatchEvent(new FTPEvent(FTPEvent.DIRECTORY_CHANGED));
             return true;
         }

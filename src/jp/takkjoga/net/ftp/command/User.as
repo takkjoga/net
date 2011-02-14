@@ -1,7 +1,10 @@
 package jp.takkjoga.net.ftp.command
 {
 
-import jp.takkjoga.net.ftp.*;
+import jp.takkjoga.net.FTP;
+import jp.takkjoga.net.ftp.FTPCommand;
+import jp.takkjoga.net.ftp.IFTPCommand;
+import jp.takkjoga.net.ftp.FTPReply;
 
 /**
  * USER NAME (USER)

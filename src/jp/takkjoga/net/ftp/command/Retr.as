@@ -1,11 +1,12 @@
-package jp.takkjoga.air.net.FTP.commands
+package jp.takkjoga.net.ftp.command
 {
 
-import jp.takkjoga.air.net.FTP;
-import jp.takkjoga.air.net.FTPEvent;
-import jp.takkjoga.air.net.FTP.*;
+import jp.takkjoga.net.FTP;
+import jp.takkjoga.net.ftp.FTPCommand;
+import jp.takkjoga.net.ftp.IFTPCommand;
+import jp.takkjoga.net.ftp.FTPReply;
 
-public class Retr extends AbstractCommand implements ICommand
+public class Retr extends FTPCommand implements IFTPCommand
 {
     private var fileName:String;
 
@@ -20,9 +21,9 @@ public class Retr extends AbstractCommand implements ICommand
         _send(command);
     }
 
-    public function response():Boolean
+    public function evaluateReply(reply:FTPReply):Boolean
     {
-        if (_receive() == 226) {
+        if (reply.replyCode == 226) {
             return true;
         }
         return false;

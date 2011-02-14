@@ -4,8 +4,9 @@ package jp.takkjoga.net.ftp
 import flash.net.Socket;
 import flash.events.Event;
 import flash.events.ProgressEvent;
-import jp.takkjoga.net.ftp.events.FTPConnectionEvent;
+import jp.takkjoga.net.ftp.events.FTPDataConnectionEvent;
 import jp.takkjoga.net.ftp.FTPReply;
+import jp.takkjoga.net.FTP;
 
 public class ControlConnection extends Socket
 {
@@ -38,8 +39,8 @@ public class ControlConnection extends Socket
 
     private function socketDataHandler(event:ProgressEvent):void
     {
-        var ftpConnectionEvent:FTPConnectionEvent = new FTPConnectionEvent(FTPConnectionEvent.DATA_CONNECTION);
-        dispatchEvent(ftpConnectionEvent);
+        var e:FTPDataConnectionEvent = new FTPDataConnectionEvent(FTPDataConnectionEvent.DATA_CONNECTION);
+        dispatchEvent(e);
     }
 
     private function connectHandler(event:Event):void

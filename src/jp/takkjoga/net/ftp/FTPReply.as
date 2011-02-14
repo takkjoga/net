@@ -1,8 +1,8 @@
 package jp.takkjoga.net.ftp
 {
 
-import jpt.takkjoga.net.ftp.*;
-import jpt.takkjoga.net.ftp.reply.DataConnectionDestination;
+import jp.takkjoga.net.ftp.*;
+import jp.takkjoga.net.ftp.reply.DataConnectionDestination;
 
 public class FTPReply
 {
@@ -24,7 +24,7 @@ public class FTPReply
         var destination:DataConnectionDestination;
         try {
             destination = new DataConnectionDestination(_reply);
-        } catch {
+        } catch (e:Error) {
         }
         return destination;
     }

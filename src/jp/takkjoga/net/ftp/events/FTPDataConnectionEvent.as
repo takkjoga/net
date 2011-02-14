@@ -3,6 +3,7 @@ package jp.takkjoga.net.ftp.events
 
 import flash.errors.*;
 import flash.events.Event;
+import jp.takkjoga.net.ftp.DataConnection;
 
 public class FTPDataConnectionEvent extends Event
 {
@@ -15,7 +16,7 @@ public class FTPDataConnectionEvent extends Event
         _dataConnection = dataConnection;
     }
 
-    override public function close():Event
+    override public function clone():Event
     {
         return new FTPDataConnectionEvent(type, _dataConnection);
     }

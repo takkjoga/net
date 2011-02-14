@@ -28,7 +28,7 @@ public class FTPCommand extends EventDispatcher
         _controlConnection.removeEventListener(FTPConnectionEvent.RECEIVE_REPLY, receiveReplyHandler);
         try {
             evaluateReply(_controlConnection.getReply());
-        } catch {
+        } catch (e:Error) {
         }
         var ftpConnectionEvent:FTPConnectionEvent = new FTPConnectionEvent(FTPConnectionEvent.COMMAND_FINISHED);
         dispatchEvent(ftpConnectionEvent);
