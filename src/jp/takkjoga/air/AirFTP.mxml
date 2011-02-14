@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" width="1000" height="700">
+    <mx:Script>
+    <![CDATA[
+        import jp.takkjoga.net.FTP;
+        import jp.takkjoga.net.ftp.events.*;
+        import jp.takkjoga.ftp.FTPClient;
+        import mx.events.*;
+        import mx.controls.Alert;
+        import mx.collections.ArrayCollection;
+
+        private var ftp:FTPClient;
+
+        private function connect(event:Event):void
+        {
+            ftp = new FTPClient();
+            if (ftp.connect(host.text)) {
+                ftp.login(user.text, password.text);
+            }
+        }
+
+        private function changeDirectory(event:Event):void
+        {
+            ftp.changeDirectory(directoryPath.text);
+        }
+
+        private function getFile(event:ListEvent):void
+        {
+            var isDirectory:String = fileListGrid.dataProvider[event.rowIndex].isDirectory;
+            var fileName:String = fileListGrid.dataProvider[event.rowIndex].fileName;
+            if (isDirectory == 'd') {
+                var directoryPathText:String = directoryPath.text;
+                var directorySeparate:String = "/";
+                if (directoryPathText.substr(-1, 1) == "/") {
+                    directorySeparate = "";
+                }
+                directoryPath.text += directorySeparate + fileName;
+                ftp.changeDirectory(directoryPath.text);
+            } else {
+                ftp.getFile(fileName);
+            }
+        }
+
+        private function changeParentDirectory(event:Event):void
+        {
+            ftp.parentDirectory();
+        }
+
+        private function logout(event:Event):void
+        {
+            ftp.logout();
+        }
+
+        private function help(event:Event):void
+        {
+            ftp.help();
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:VBox>
+        <mx:Form defaultButton="{submitButton}" borderColor="0xFFFFFF" borderStyle="solid" indicatorGap="2" paddingTop="2" paddingBottom="2" paddingLeft="2" paddingRight="2" width="100%" height="100%">
+            <mx:HBox>
+                <mx:FormItem label="Host:">
+                    <mx:TextInput id="host" text="takkjoga.jp"/>
+                </mx:FormItem>
+                <mx:FormItem label="User:">
+                    <mx:TextInput id="user" text="takkjoga"/>
+                </mx:FormItem>
+                <mx:FormItem label="Password:">
+                    <mx:TextInput id="password" displayAsPassword="true" text="BJsc9dNi"/>
+                </mx:FormItem>
+                <mx:FormItem>
+                    <mx:Button id="submitButton" label="connect" click="connect(event);"/>
+                </mx:FormItem>
+                <mx:FormItem>
+                    <mx:Button id="logoutButton" label="exit" click="logout(event);"/>
+                </mx:FormItem>
+                <mx:FormItem>
+                    <mx:Button id="helpButton" label="help" click="help(event);"/>
+                </mx:FormItem>
+            </mx:HBox>
+        </mx:Form>
+        <mx:Form defaultButton="{directoryPathSubmitButton}" width="100%" height="100%">
+            <mx:HBox>
+                <mx:TextInput id="directoryPath" text="/" textAlign="left"/>
+                <mx:Button id="directoryPathSubmitButton" label="changeDirectory" click="changeDirectory(event);"/>
+                <mx:Button id="parentDirectory" label="Parent Directory" click="changeParentDirectory(event);"/>
+            </mx:HBox>
+        </mx:Form>
+        <mx:VDividedBox width="100%" height="100%">
+            <mx:HDividedBox width="100%" height="100%">
+                <mx:Tree id="directories" width="30%" height="100%" labelField="@label" showRoot="true" />
+                <mx:DataGrid id="fileListGrid" width="700" height="200" editable="true" doubleClickEnabled="true" itemDoubleClick="getFile(event);">
+                    <mx:columns>
+                        <mx:DataGridColumn dataField="fileName" resizable="true" editable="false"/>
+                        <mx:DataGridColumn dataField="fileSize" resizable="true" editable="false"/>
+                        <mx:DataGridColumn dataField="permission" resizable="true" editable="false"/>
+                        <mx:DataGridColumn dataField="date" resizable="true" editable="false"/>
+                    </mx:columns>
+                </mx:DataGrid>
+            </mx:HDividedBox>
+            <mx:TextArea id="transferLog" editable="false" width="700" height="200"/>
+        </mx:VDividedBox>
+    </mx:VBox>
+</mx:WindowedApplication>

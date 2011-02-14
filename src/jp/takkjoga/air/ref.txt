@@ -1,0 +1,1 @@
+amxmlc AirFTP.mxml --source-path=../../../
